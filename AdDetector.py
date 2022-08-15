@@ -27,23 +27,10 @@ tf.logging.set_verbosity(tf.logging.ERROR)
 # This is needed since the notebook is stored in the object_detection folder.
 sys.path.append("..")
 
-# string_int_label_map_pb2
-# Import utilites
 from utils import label_map_util
 from utils import visualization_utils as vis_util
 
-import pyautogui
 import time
-import random
-import math
-
-
-
-def offset_location(x,y):
-    random_x_position = random.randint(-10,10)
-    random_y_position = random.randint(-10,10)
-    goal_position = x+random_x_position,y+random_y_position
-    return goal_position
 
 def shape_detector(xmin, xmax, ymin, ymax):
     xlength = xmax - xmin
@@ -69,73 +56,17 @@ def shape_detector(xmin, xmax, ymin, ymax):
         print("Not sure what size this is.")
         return "Unknown"
     
-def distance_between_points(x_min, x_max, y_min, y_max):
-    d = math.sqrt((x_max - x_min)**2 + (y_max - y_min) ** 2)
-    return d
 
 def midpoint(xmin, xmax, ymin, ymax):
     x_mid = ((xmin+xmax) / 2)
     y_mid = ((ymin+ymax) / 2)
     return (int(x_mid), int(y_mid))
 
-def click_point_finder(x_min, x_max, y_min, y_max, shape='Unknown'):
-    if shape == 'Unknown':
-        md_point = midpoint(xmin=int(x_min), xmax=int(x_max), 
-                            ymin=int(y_min), ymax=int(y_max))
-        return md_point
-    
-    elif shape == '300x250':
-        md_point = midpoint(xmin=int(x_min), xmax=int(x_max), 
-                            ymin=int(y_min), ymax=int(y_max))
-        print(f"First mid_point: {md_point}")
-        mid_x, mid_y = md_point
-        click_point = midpoint(x_min,x_max, mid_y,y_max)
-        return click_point
-    
-    elif shape == '300x600' or shape == '160x600':
-        md_point = midpoint(xmin=int(x_min), xmax=int(x_max), 
-                            ymin=int(y_min), ymax=int(y_max))
-        print(f"First mid_point: {md_point}")
-        mid_x, mid_y = md_point
-        md_point_2 = midpoint(xmin=int(mid_x), xmax=int(x_max), 
-                              ymin=int(mid_y), ymax=int(y_max))
-        print(f"Second mid_point: {md_point_2}")
-        mid_x_2, mid_y_2 = md_point_2
-        md_point_3 = midpoint(xmin=int(mid_x_2), xmax=int(x_max),
-                              ymin=int(mid_y_2), ymax=int(y_max))
-        print(f"Third mid_point: {md_point_3}")
-        mid_x_3, mid_y_3 = md_point_3
-        click_point = (mid_x, mid_y_3)        
-        return click_point
-    
-    elif shape == '728x90':
-        md_point_1 = midpoint(xmin=int(x_min), xmax=int(x_max), 
-                              ymin=int(y_min), ymax=int(y_max))
-        x_mid_1, y_mid_1 = md_point_1
-        md_point_2 = midpoint(xmin=int(x_mid_1), xmax=int(x_max), 
-                              ymin=int(y_mid_1), ymax=int(y_max))
-        x_mid_2, _ = md_point_2
-        md_point_3 = midpoint(xmin=int(x_mid_2), xmax=int(x_max), 
-                              ymin=int(y_mid_1), ymax=int(y_max))
-        x_mid_3, _ = md_point_3
-        click_point = x_mid_3, y_mid_1
-        #distance = distance_between_points(x_min, x_max, y_min, y_max)
-        return click_point
-    
-    else:
-        md_point = midpoint(xmin=int(x_min), xmax=int(x_max), 
-                            ymin=int(y_min), ymax=int(y_max))
-        print(f"First mid_point: {md_point}")
-        mid_x, mid_y = md_point
-        click_point = midpoint(x_min,x_max, mid_y,y_max)
-        return click_point
-
-
-
 # Load the Tensorflow model into memory.
 def get_ad_location():
     MODEL_NAME = 'inference_graph'
     Image_directory='dataset'
+    output_folder_path = os.path.join(os.getcwd(), 'output_folder')
     
     # Grab path to current working directory
     CWD_PATH = os.getcwd()
@@ -153,8 +84,7 @@ def get_ad_location():
     NUM_CLASSES = 1
     
     # Load the label map.
-    # Label maps map indices to category names, so that when our convolution
-    # network predicts `5`, we know that this corresponds to `king`.
+    # Label maps map indices to category names
     # Here we use internal utility functions, but anything that returns a
     # dictionary mapping integers to appropriate string labels would be fine
     label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
@@ -193,9 +123,10 @@ def get_ad_location():
 	# Load image using OpenCV and
 	# expand image dimensions to have shape: [1, None, None, 3]
 	# i.e. a single-column array, where each item in the column has the pixel RGB value
-    couter_write=0
+    counter_write=len(os.listdir(output_folder_path))
+    # For one-time, single use image ad detection
     unix_timestamp = int(datetime.timestamp(datetime.now()))
-    pyautogui.screenshot(os.path.join(PATH_To_dataset, 'screenshot.jpg'))
+    # pyautogui.screenshot(os.path.join(PATH_To_dataset, 'screenshot.jpg'))
     
     for img in innerimages:
         image = cv2.imread(join(PATH_To_dataset, str(img)))
@@ -242,12 +173,12 @@ def get_ad_location():
 
 		# All the results have been drawn on image. Now display the image.
         cv2.imwrite(f"output_folder\Detected_image_{unix_timestamp}_"+str(img)+".png",image)
-        couter_write=couter_write+1
         
         mid_point_container = []
         
         if len(points) == 0:
-            return "no ads detected on page"
+            print("no ads detected on page")
+            result = 0
         else:
             print(f"points: {points}")
             
@@ -259,7 +190,16 @@ def get_ad_location():
                 print(f"Located at midpoint: {mid_point}")
                 mid_point_container.append(mid_point)
             
-            return mid_point_container
+            print(mid_point_container)
+            result = mid_point_container
+            
+        write_file_string = "Detected_image_{}_{}".format(unix_timestamp, str(img))
+        with open('data_sheet.txt', 'a') as file:
+            content = str(counter_write) + "\t" + str(unix_timestamp) + "\t" + str(write_file_string) + "\t" + str(len(points)) + "\t" + str(result)
+            file.write(content+"\n")
+        counter_write=counter_write+1            
+            
+            
         
 if __name__ == "__main__":
     time.sleep(2)
