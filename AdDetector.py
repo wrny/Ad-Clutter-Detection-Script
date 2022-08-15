@@ -1,11 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Jul 18 10:16:58 2019
-
-@author: willi
-"""
-# What I want to do is take four points, analyze the general size in pixels 
-# area. So if I get a 728x90, then I can that those four
 
 import os
 from os.path import join
@@ -29,8 +22,6 @@ sys.path.append("..")
 
 from utils import label_map_util
 from utils import visualization_utils as vis_util
-
-import time
 
 def shape_detector(xmin, xmax, ymin, ymax):
     xlength = xmax - xmin
@@ -119,14 +110,16 @@ def get_ad_location():
 	# Number of objects detected
     num_detections = detection_graph.get_tensor_by_name('num_detections:0')
     
-    innerimages = os.listdir(PATH_To_dataset)
-	# Load image using OpenCV and
+
+    # For content writing in the text document
+    counter_write=len(os.listdir(output_folder_path))
+    unix_timestamp = int(datetime.timestamp(datetime.now()))
+    
+    # Load image using OpenCV and
 	# expand image dimensions to have shape: [1, None, None, 3]
 	# i.e. a single-column array, where each item in the column has the pixel RGB value
-    counter_write=len(os.listdir(output_folder_path))
     # For one-time, single use image ad detection
-    unix_timestamp = int(datetime.timestamp(datetime.now()))
-    # pyautogui.screenshot(os.path.join(PATH_To_dataset, 'screenshot.jpg'))
+    innerimages = os.listdir(PATH_To_dataset)
     
     for img in innerimages:
         image = cv2.imread(join(PATH_To_dataset, str(img)))
@@ -172,7 +165,7 @@ def get_ad_location():
                                                            min_score_thresh=0.8)
 
 		# All the results have been drawn on image. Now display the image.
-        cv2.imwrite(f"output_folder\Detected_image_{unix_timestamp}_"+str(img)+".png",image)
+        cv2.imwrite(f"output_folder\Detected_image_{unix_timestamp}_"+str(img),image)
         
         mid_point_container = []
         
@@ -202,10 +195,4 @@ def get_ad_location():
             
         
 if __name__ == "__main__":
-    time.sleep(2)
     ad_location = get_ad_location()
-    if type(ad_location) is str:
-        print("No ads on page!")
-    else:
-        print(f"Ad location: {ad_location}")
-        # pyautogui.moveTo(ad_location)
