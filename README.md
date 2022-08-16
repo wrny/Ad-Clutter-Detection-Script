@@ -31,13 +31,10 @@ Yes! Sort of. It has trouble with:
 Other than that, it works like a dream. 😅
 
 ### Example of working well:
-[![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/good_examples/Detected_image_1660474931_allrecipes.com_2022-08-14-07-58-48_5_.png.png?token=GHSAT0AAAAAABXANJW7PHAH27NOLSKOM4QYYX3YTCQ "2")](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/good_examples/Detected_image_1660474931_allrecipes.com_2022-08-14-07-58-48_5_.png.png?token=GHSAT0AAAAAABXANJW7PHAH27NOLSKOM4QYYX3YTCQ "1")
+![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/good_examples/Detected_image_1660474931_allrecipes.com_2022-08-14-07-58-48_5_.png.png?token=GHSAT0AAAAAABXANJW6TCVPEWTPO7TIGMNAYX32TNQ "1")
 
 ### Example of working badly:
-![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/bad_examples/Detected_image_1660474931_airbnb.com_2022-08-14-00-29-23_1_.png.png?token=GHSAT0AAAAAABXANJW64XHYGKHQ4FTMLT3IYX3YU5Q "1")
-
-### Example of working so-so:
-![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/other_examples/Detected_image_1660328383_screenshot.jpg.png?token=GHSAT0AAAAAABXANJW6HDZBWVF4BGIX5JWGYX3YXYA "1")
+![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/bad_examples/Detected_image_1660474931_airbnb.com_2022-08-14-00-29-23_1_.png.png?token=GHSAT0AAAAAABXANJW72UYHK4PVGIXJAWV6YX32V5Q)
 
 ### How to improve it:
 * Reducing the threshold will reduce the amount of false positives, but it will cause the tool to miss some fairly obvious ads.
@@ -53,32 +50,58 @@ There was definitely a trade-off between length of solving (this takes a few sec
 **Installation Guide for Windows**:
 
 `Download + Install Git for Windows https://git-scm.com/download/win`
+
 `Download + Install Anaconda from here https://www.anaconda.com/` (will take a while, ~10 mins?)
+
 `git clone https://github.com/wrny/Ad-Clutter-Detection-Script`
+
 `cd Ad-Clutter-Detection-Script`
+
 `Open Anaconda Command Prompt from the Win icon in the lower-left corner of the screen`
+
 `conda create -n py37 python=3.7`
+
 `conda activate py37`
+
 `conda install pip`
+
 `python -m pip install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.13.1-py3-none-any.whl` (I know it says for Mac. Ignore that, the link still works)
+
 `conda install tensorflow==1.13.1`
+
 `conda install matplotlib`
+
 `pip install opencv-python`
+
 
 **Installation for Linux (here Ubuntu 20.04 LTS)**:
 
 `sudo apt update`
+
 `sudo apt upgrade`
+
 `sudo git clone https://github.com/wrny/Ad-Clutter-Detection-Script`
+
 `Go to anaconda.org from a normal web browser + copy the downloaded file link`
+
 `wget downloaded file link`
+
 `bash <<DOWNLOADED ANACONDA FILE>>`
+
 `Yes to install Install + reboot once installation is done`
+
 `conda create -n py37 python=3.7`
+
 `conda activate py37`
+
 `conda install pip` 
+
 `python -m pip install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.13.1-py3-none-any.whl` (I know it says for Mac. Ignore that, the link still works)
+
 `conda install tensorflow==1.13.1`
+
 `conda install matplotlib`
+
 `pip install opencv-python`
+
 `sudo apt install libgl1-mesa-glx`
