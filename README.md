@@ -31,10 +31,10 @@ Yes! Sort of. It has trouble with:
 Other than that, it works like a dream. 😅
 
 ### Example of working well:
-![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/good_examples/Detected_image_1660474931_allrecipes.com_2022-08-14-07-58-48_5_.png.png?token=GHSAT0AAAAAABXANJW6TCVPEWTPO7TIGMNAYX32TNQ "1")
+![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/good_examples/Detected_image_1660474931_allrecipes.com_2022-08-14-07-58-48_5_.png.png "1")
 
 ### Example of working badly:
-![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/bad_examples/Detected_image_1660474931_airbnb.com_2022-08-14-00-29-23_1_.png.png?token=GHSAT0AAAAAABXANJW72UYHK4PVGIXJAWV6YX32V5Q)
+![1](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/bad_examples/Detected_image_1660474931_airbnb.com_2022-08-14-00-29-23_1_.png.png "1")
 
 ### How to improve it:
 * Reducing the threshold will reduce the amount of false positives, but it will cause the tool to miss some fairly obvious ads.
