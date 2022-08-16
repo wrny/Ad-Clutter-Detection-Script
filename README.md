@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/wrny/Ad-Clutter-Detection-Script/master/sample_outputs/other_examples/Detected_image_1660327704_screenshot.jpg.png?token=GHSAT0AAAAAABXANJW7C3G5YZVNM24E6TLUYX3YUDQ)
+![](https://github.com/wrny/Ad-Clutter-Detection-Script/blob/master/sample_outputs/other_examples/Detected_image_1660327704_screenshot.jpg.png?raw=true)
 
 # Ad-Clutter-Detection-Script
 
