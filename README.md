@@ -17,6 +17,8 @@ The Script:
 
 From there, you'll see processed images in the output_folder directory, along with a text doc named 'data_sheet.txt' which is where the results of the model. 
 
+There are around 20 or so images in the "dataset" folders as samples, so you can use it immediately after clone + setup.
+
 ## Does it work?
 Yes! Sort of. It has trouble with:
 
