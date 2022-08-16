@@ -112,7 +112,6 @@ def get_ad_location():
     
 
     # For content writing in the text document
-    counter_write=len(os.listdir(output_folder_path))
     unix_timestamp = int(datetime.timestamp(datetime.now()))
     
     # Load image using OpenCV and
@@ -133,7 +132,7 @@ def get_ad_location():
         final_score = np.squeeze(scores)    
         count = 0
         for i in range(100):
-            if scores is None or final_score[i] > 0.8:
+            if scores is None or final_score[i] > 0.9:
                 count = count + 1        
         mid_point_arr=[]
         
@@ -162,7 +161,7 @@ def get_ad_location():
                                                            category_index,
                                                            use_normalized_coordinates=True,
                                                            line_thickness=8,
-                                                           min_score_thresh=0.8)
+                                                           min_score_thresh=0.9)
 
 		# All the results have been drawn on image. Now display the image.
         cv2.imwrite(f"output_folder\Detected_image_{unix_timestamp}_"+str(img),image)
@@ -173,26 +172,23 @@ def get_ad_location():
             print("no ads detected on page")
             result = 0
         else:
-            print(f"points: {points}")
+            print(f"{len(points)} ads detected on the page.")
             
             for point in points:
                 xmin, xmax, ymin, ymax = point
-                shape = shape_detector(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
-                print("shape: {}".format(shape)) # for debugging
+                # shape = shape_detector(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax) # for debugging
+                # print("shape: {}".format(shape)) # for debugging
                 mid_point = midpoint(xmin, xmax, ymin, ymax)
-                print(f"Located at midpoint: {mid_point}")
+                # print(f"Located at midpoint: {mid_point}") # for debugging
                 mid_point_container.append(mid_point)
             
-            print(mid_point_container)
+            # print(mid_point_container) # for debugging
             result = mid_point_container
             
         write_file_string = "Detected_image_{}_{}".format(unix_timestamp, str(img))
         with open('data_sheet.txt', 'a') as file:
-            content = str(counter_write) + "\t" + str(unix_timestamp) + "\t" + str(write_file_string) + "\t" + str(len(points)) + "\t" + str(result)
+            content = str(unix_timestamp) + "\t" + str(write_file_string) + "\t" + str(len(points)) + "\t" + str(result)
             file.write(content+"\n")
-        counter_write=counter_write+1            
             
-            
-        
 if __name__ == "__main__":
     ad_location = get_ad_location()
